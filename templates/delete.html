@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+{% if contact.manager == request.user %}
+{{contact.name}}
+{% else %}
+No access
+{% endif %}
+{% endblock title %}
+
+{% block content %}
+{% if contact.manager == request.user %}
+<div class="container">
+    <h4 class="heading font-weight-light text-center">Delete {{contact.name}} ?</h4>
+    <hr>
+</div>
+
+<div class="container">
+    <form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form|crispy}}
+    <input type="submit" value="Delete" class=" btn btn-danger w-100 text-danger text-center my-2">
+    </form>
+</div>
+{% else %}
+<div class="container">
+    <h4 class="heading font-weight-light text-center">You don't have access to this page! ! !</h4>
+    <hr>
+</div>
+{% endif %}
+{% endblock content %}
